@@ -3,100 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Algoritmo Diagnóstico VIH</title>
+<title>Algoritmo Diagnóstico VIH - Presentación Médica</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-body { font-family: Arial, sans-serif; margin:0; background:#0f172a; color:white; }
-section { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; }
-h1 { font-size:2.5rem; }
-p { max-width:600px; }
-button { margin-top:20px; padding:12px 20px; border:none; border-radius:10px; background:#22c55e; color:white; cursor:pointer; font-size:1rem; }
-.hidden { display:none; }
-.card { background:#1e293b; padding:30px; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.3); }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0f172a,#020617);
+  color:white;
+  overflow-x:hidden;
+}
+section{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px;
+  scroll-snap-align:start;
+}
+.container{
+  max-width:900px;
+}
+h1{
+  font-size:2.8rem;
+  margin-bottom:20px;
+}
+p{
+  font-size:1.2rem;
+  opacity:.8;
+}
+button{
+  margin:15px;
+  padding:14px 24px;
+  border:none;
+  border-radius:12px;
+  font-size:1rem;
+  cursor:pointer;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:white;
+  transition:.2s;
+}
+button:hover{
+  transform:scale(1.05);
+}
+.card{
+  background:rgba(30,41,59,.7);
+  backdrop-filter:blur(10px);
+  border-radius:25px;
+  padding:40px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:5px;
+  background:#22c55e;
+  width:0%;
+  z-index:999;
+}
+.hidden{display:none}
+.icon{
+  font-size:3rem;
+  margin-bottom:20px;
+}
 </style>
 </head>
 <body>
 
+<div class="progress" id="progress"></div>
+
 <section id="start">
-  <div class="card">
+  <div class="card container">
+    <div class="icon">🧬</div>
     <h1>Diagnóstico de VIH</h1>
-    <p>Algoritmo simplificado para reducir errores diagnósticos en infección aguda</p>
-    <button onclick="next('step1')">Iniciar</button>
+    <p>Algoritmo clínico optimizado para reducir errores diagnósticos en fase aguda</p>
+    <button onclick="next('step1',10)">Iniciar</button>
   </div>
 </section>
 
 <section id="step1" class="hidden">
-  <div class="card">
-    <h1>¿Hay riesgo reciente (&lt;4 semanas)?</h1>
-    <button onclick="next('step2')">Sí</button>
-    <button onclick="next('step2')">No</button>
+  <div class="card container">
+    <div class="icon">🩺</div>
+    <h1>Evaluación clínica</h1>
+    <p>¿Existe riesgo reciente o síntomas compatibles con infección aguda?</p>
+    <button onclick="next('step2',25)">Continuar</button>
   </div>
 </section>
 
 <section id="step2" class="hidden">
-  <div class="card">
-    <h1>Realizar prueba VIH 4ª generación</h1>
-    <button onclick="next('negativo')">No reactivo</button>
-    <button onclick="next('positivo')">Reactivo</button>
+  <div class="card container">
+    <div class="icon">🧪</div>
+    <h1>Prueba inicial</h1>
+    <p>Realizar prueba de 4ª generación (Ag p24 + anticuerpos)</p>
+    <button onclick="next('negativo',40)">No reactivo</button>
+    <button onclick="next('positivo',40)">Reactivo</button>
   </div>
 </section>
 
 <section id="negativo" class="hidden">
-  <div class="card">
-    <h1>Resultado NO reactivo</h1>
-    <p>¿Existe alta sospecha clínica?</p>
-    <button onclick="next('rna')">Sí</button>
-    <button onclick="next('finNegativo')">No</button>
+  <div class="card container">
+    <div class="icon">⚠️</div>
+    <h1>Resultado no reactivo</h1>
+    <p>¿Alta sospecha clínica o exposición reciente?</p>
+    <button onclick="next('rna',55)">Sí</button>
+    <button onclick="next('finNegativo',100)">No</button>
   </div>
 </section>
 
 <section id="rna" class="hidden">
-  <div class="card">
-    <h1>Solicitar RNA VIH</h1>
-    <button onclick="next('vihAgudo')">RNA positivo</button>
-    <button onclick="next('repetir')">RNA negativo</button>
+  <div class="card container">
+    <div class="icon">🧫</div>
+    <h1>Prueba molecular</h1>
+    <p>Solicitar RNA VIH</p>
+    <button onclick="next('vihAgudo',75)">RNA positivo</button>
+    <button onclick="next('repetir',75)">RNA negativo</button>
   </div>
 </section>
 
 <section id="positivo" class="hidden">
-  <div class="card">
-    <h1>Resultado REACTIVO</h1>
-    <p>Confirmar con RNA VIH</p>
-    <button onclick="next('vihConfirmado')">RNA positivo</button>
-    <button onclick="next('repetir')">RNA negativo</button>
+  <div class="card container">
+    <div class="icon">🔬</div>
+    <h1>Resultado reactivo</h1>
+    <p>Confirmar con RNA VIH (no usar Western Blot)</p>
+    <button onclick="next('vihConfirmado',75)">RNA positivo</button>
+    <button onclick="next('repetir',75)">RNA negativo</button>
   </div>
 </section>
 
 <section id="vihAgudo" class="hidden">
-  <div class="card">
-    <h1>VIH AGUDO</h1>
-    <p>Iniciar manejo inmediato</p>
+  <div class="card container">
+    <div class="icon">🚨</div>
+    <h1>VIH agudo</h1>
+    <p>Iniciar tratamiento inmediato y seguimiento</p>
   </div>
 </section>
 
 <section id="vihConfirmado" class="hidden">
-  <div class="card">
-    <h1>VIH CONFIRMADO</h1>
-    <p>Referir a tratamiento</p>
+  <div class="card container">
+    <div class="icon">✅</div>
+    <h1>VIH confirmado</h1>
+    <p>Referir a manejo integral</p>
   </div>
 </section>
 
 <section id="repetir" class="hidden">
-  <div class="card">
-    <h1>Repetir pruebas</h1>
-    <p>Realizar nueva prueba en 1-2 semanas</p>
+  <div class="card container">
+    <div class="icon">🔁</div>
+    <h1>Seguimiento</h1>
+    <p>Repetir pruebas en 1–2 semanas</p>
   </div>
 </section>
 
 <section id="finNegativo" class="hidden">
-  <div class="card">
+  <div class="card container">
+    <div class="icon">✔️</div>
     <h1>VIH descartado</h1>
   </div>
 </section>
 
 <script>
-function next(id) {
-  document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+function next(id,progress){
+  document.querySelectorAll('section').forEach(sec=>sec.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
+  document.getElementById('progress').style.width = progress + '%';
 }
 </script>
 
