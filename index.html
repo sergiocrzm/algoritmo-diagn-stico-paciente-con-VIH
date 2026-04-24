@@ -3,172 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Algoritmo Diagnóstico VIH - Presentación Médica</title>
+<title>Guía VIH - Presentación Clínica</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Inter',sans-serif;
-  background:linear-gradient(135deg,#0f172a,#020617);
-  color:white;
-  overflow-x:hidden;
-}
-section{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:40px;
-  scroll-snap-align:start;
-}
-.container{
-  max-width:900px;
-}
-h1{
-  font-size:2.8rem;
-  margin-bottom:20px;
-}
-p{
-  font-size:1.2rem;
-  opacity:.8;
-}
-button{
-  margin:15px;
-  padding:14px 24px;
-  border:none;
-  border-radius:12px;
-  font-size:1rem;
-  cursor:pointer;
-  background:linear-gradient(135deg,#22c55e,#16a34a);
-  color:white;
-  transition:.2s;
-}
-button:hover{
-  transform:scale(1.05);
-}
-.card{
-  background:rgba(30,41,59,.7);
-  backdrop-filter:blur(10px);
-  border-radius:25px;
-  padding:40px;
-  box-shadow:0 20px 60px rgba(0,0,0,.4);
-}
-.progress{
-  position:fixed;
-  top:0;
-  left:0;
-  height:5px;
-  background:#22c55e;
-  width:0%;
-  z-index:999;
-}
+body{font-family:'Inter',sans-serif;background:#020617;color:white;overflow-x:hidden}
+section{min-height:100vh;padding:80px 10%;display:flex;flex-direction:column;justify-content:center}
+h1{font-size:3rem;margin-bottom:20px}
+h2{font-size:2rem;margin-bottom:15px;color:#22c55e}
+p{opacity:.8;line-height:1.6}
+.row{display:flex;gap:40px;flex-wrap:wrap}
+.col{flex:1;min-width:280px}
+.highlight{color:#22c55e;font-weight:600}
+.line{height:2px;background:#22c55e;margin:30px 0;width:80px}
+.flow{display:flex;flex-direction:column;align-items:center;margin-top:30px}
+.flow div{padding:15px 25px;border:1px solid #22c55e;border-radius:10px;margin:10px}
+button{margin-top:20px;padding:12px 20px;border:none;border-radius:10px;background:#22c55e;color:white;cursor:pointer}
 .hidden{display:none}
-.icon{
-  font-size:3rem;
-  margin-bottom:20px;
-}
+footer{padding:40px;text-align:center;border-top:1px solid #1e293b}
 </style>
 </head>
 <body>
 
-<div class="progress" id="progress"></div>
-
-<section id="start">
-  <div class="card container">
-    <div class="icon">🧬</div>
-    <h1>Diagnóstico de VIH</h1>
-    <p>Algoritmo clínico optimizado para reducir errores diagnósticos en fase aguda</p>
-    <button onclick="next('step1',10)">Iniciar</button>
-  </div>
+<section>
+<h1>Guía Diagnóstica VIH</h1>
+<p>Enfoque clínico e inmunológico para diagnóstico preciso y reducción de errores.</p>
 </section>
 
-<section id="step1" class="hidden">
-  <div class="card container">
-    <div class="icon">🩺</div>
-    <h1>Evaluación clínica</h1>
-    <p>¿Existe riesgo reciente o síntomas compatibles con infección aguda?</p>
-    <button onclick="next('step2',25)">Continuar</button>
-  </div>
+<section>
+<h2>Fundamentos</h2>
+<div class="row">
+<div class="col">
+<p>El VIH es un retrovirus ARN que utiliza <span class="highlight">transcriptasa reversa</span> para integrarse al genoma.</p>
+<p>Afecta principalmente linfocitos CD4+, macrófagos y células dendríticas.</p>
+</div>
+<div class="col">
+<p>Sin tratamiento progresa a SIDA en 8–10 años.</p>
+<p><span class="highlight">CD4 &lt; 200</span> define inmunosupresión severa.</p>
+</div>
+</div>
 </section>
 
-<section id="step2" class="hidden">
-  <div class="card container">
-    <div class="icon">🧪</div>
-    <h1>Prueba inicial</h1>
-    <p>Realizar prueba de 4ª generación (Ag p24 + anticuerpos)</p>
-    <button onclick="next('negativo',40)">No reactivo</button>
-    <button onclick="next('positivo',40)">Reactivo</button>
-  </div>
+<section>
+<h2>Cronología de infección</h2>
+<div class="line"></div>
+<div class="row">
+<div class="col"><p><b>Eclipse</b><br>RNA detectable (~día 10)</p></div>
+<div class="col"><p><b>Ventana</b><br>p24 detectable (~día 18)</p></div>
+<div class="col"><p><b>Aguda</b><br>síntomas + anticuerpos</p></div>
+<div class="col"><p><b>Crónica</b><br>todas pruebas positivas</p></div>
+</div>
+<p><br><span class="highlight">Alta carga viral = alta transmisión</span></p>
 </section>
 
-<section id="negativo" class="hidden">
-  <div class="card container">
-    <div class="icon">⚠️</div>
-    <h1>Resultado no reactivo</h1>
-    <p>¿Alta sospecha clínica o exposición reciente?</p>
-    <button onclick="next('rna',55)">Sí</button>
-    <button onclick="next('finNegativo',100)">No</button>
-  </div>
+<section>
+<h2>Métodos diagnósticos</h2>
+<div class="row">
+<div class="col"><p><b>ELISA 4ª gen</b><br>Detecta p24 + anticuerpos</p></div>
+<div class="col"><p><b>Pruebas rápidas</b><br>Menor sensibilidad en fase aguda</p></div>
+<div class="col"><p><b>Western Blot</b><br>Obsoleto</p></div>
+<div class="col"><p><b>PCR</b><br>Diagnóstico temprano clave</p></div>
+</div>
 </section>
 
-<section id="rna" class="hidden">
-  <div class="card container">
-    <div class="icon">🧫</div>
-    <h1>Prueba molecular</h1>
-    <p>Solicitar RNA VIH</p>
-    <button onclick="next('vihAgudo',75)">RNA positivo</button>
-    <button onclick="next('repetir',75)">RNA negativo</button>
-  </div>
+<section>
+<h2>Algoritmo clínico</h2>
+<div class="flow" id="flowStart">
+<div>Inicio</div>
+<button onclick="next('flow1')">Comenzar</button>
+</div>
+
+<div class="flow hidden" id="flow1">
+<div>¿Riesgo reciente?</div>
+<button onclick="next('flow2')">Continuar</button>
+</div>
+
+<div class="flow hidden" id="flow2">
+<div>ELISA 4ª generación</div>
+<button onclick="next('flowNeg')">No reactivo</button>
+<button onclick="next('flowPos')">Reactivo</button>
+</div>
+
+<div class="flow hidden" id="flowNeg">
+<div>¿Sospecha alta?</div>
+<button onclick="next('flowPCR')">Sí</button>
+<button onclick="next('flowEndNeg')">No</button>
+</div>
+
+<div class="flow hidden" id="flowPos">
+<div>Confirmar con PCR</div>
+<button onclick="next('flowVIH')">RNA +</button>
+<button onclick="next('flowRepeat')">RNA -</button>
+</div>
+
+<div class="flow hidden" id="flowPCR">
+<div>PCR VIH</div>
+<button onclick="next('flowVIH')">Positivo</button>
+<button onclick="next('flowRepeat')">Negativo</button>
+</div>
+
+<div class="flow hidden" id="flowVIH">
+<div>VIH confirmado</div>
+</div>
+
+<div class="flow hidden" id="flowRepeat">
+<div>Repetir pruebas 1–2 semanas</div>
+</div>
+
+<div class="flow hidden" id="flowEndNeg">
+<div>VIH descartado</div>
+</div>
 </section>
 
-<section id="positivo" class="hidden">
-  <div class="card container">
-    <div class="icon">🔬</div>
-    <h1>Resultado reactivo</h1>
-    <p>Confirmar con RNA VIH (no usar Western Blot)</p>
-    <button onclick="next('vihConfirmado',75)">RNA positivo</button>
-    <button onclick="next('repetir',75)">RNA negativo</button>
-  </div>
+<section>
+<h2>Diagnóstico pediátrico</h2>
+<p>No usar serología (anticuerpos maternos).</p>
+<p>PCR: 14–21 días, 1–2 meses, 4–6 meses.</p>
 </section>
 
-<section id="vihAgudo" class="hidden">
-  <div class="card container">
-    <div class="icon">🚨</div>
-    <h1>VIH agudo</h1>
-    <p>Iniciar tratamiento inmediato y seguimiento</p>
-  </div>
+<section>
+<h2>Comunicación clínica (SPIKES)</h2>
+<div class="row">
+<div class="col"><p>Privacidad y contexto adecuado</p></div>
+<div class="col"><p>Evaluar percepción</p></div>
+<div class="col"><p>Información progresiva</p></div>
+<div class="col"><p>Validar emociones</p></div>
+</div>
 </section>
 
-<section id="vihConfirmado" class="hidden">
-  <div class="card container">
-    <div class="icon">✅</div>
-    <h1>VIH confirmado</h1>
-    <p>Referir a manejo integral</p>
-  </div>
+<section>
+<h2>Mitos y realidades</h2>
+<p>No es muerte inmediata. Es enfermedad crónica tratable.</p>
+<p>No se transmite por contacto casual.</p>
+<p><span class="highlight">I = I</span></p>
 </section>
 
-<section id="repetir" class="hidden">
-  <div class="card container">
-    <div class="icon">🔁</div>
-    <h1>Seguimiento</h1>
-    <p>Repetir pruebas en 1–2 semanas</p>
-  </div>
+<section>
+<h2>Recursos en México</h2>
+<p>CENSIDA • CAPASITS • TELSIDA • TARV gratuito</p>
 </section>
 
-<section id="finNegativo" class="hidden">
-  <div class="card container">
-    <div class="icon">✔️</div>
-    <h1>VIH descartado</h1>
-  </div>
-</section>
+<footer>
+<p>
+Sergio Alejandro Cruz Martínez<br>
+Nicolás Alfonso Dávila Barajas<br>
+Leira Johana Guerrero Castro<br>
+Maritza Paola Guerrero López
+</p>
+</footer>
 
 <script>
-function next(id,progress){
-  document.querySelectorAll('section').forEach(sec=>sec.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  document.getElementById('progress').style.width = progress + '%';
+function next(id){
+ document.querySelectorAll('.flow').forEach(e=>e.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
 }
 </script>
 
