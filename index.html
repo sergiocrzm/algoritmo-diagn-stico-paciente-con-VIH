@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algoritmo Diagnóstico VIH</title>
+<style>
+body { font-family: Arial, sans-serif; margin:0; background:#0f172a; color:white; }
+section { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; }
+h1 { font-size:2.5rem; }
+p { max-width:600px; }
+button { margin-top:20px; padding:12px 20px; border:none; border-radius:10px; background:#22c55e; color:white; cursor:pointer; font-size:1rem; }
+.hidden { display:none; }
+.card { background:#1e293b; padding:30px; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.3); }
+</style>
+</head>
+<body>
+
+<section id="start">
+  <div class="card">
+    <h1>Diagnóstico de VIH</h1>
+    <p>Algoritmo simplificado para reducir errores diagnósticos en infección aguda</p>
+    <button onclick="next('step1')">Iniciar</button>
+  </div>
+</section>
+
+<section id="step1" class="hidden">
+  <div class="card">
+    <h1>¿Hay riesgo reciente (&lt;4 semanas)?</h1>
+    <button onclick="next('step2')">Sí</button>
+    <button onclick="next('step2')">No</button>
+  </div>
+</section>
+
+<section id="step2" class="hidden">
+  <div class="card">
+    <h1>Realizar prueba VIH 4ª generación</h1>
+    <button onclick="next('negativo')">No reactivo</button>
+    <button onclick="next('positivo')">Reactivo</button>
+  </div>
+</section>
+
+<section id="negativo" class="hidden">
+  <div class="card">
+    <h1>Resultado NO reactivo</h1>
+    <p>¿Existe alta sospecha clínica?</p>
+    <button onclick="next('rna')">Sí</button>
+    <button onclick="next('finNegativo')">No</button>
+  </div>
+</section>
+
+<section id="rna" class="hidden">
+  <div class="card">
+    <h1>Solicitar RNA VIH</h1>
+    <button onclick="next('vihAgudo')">RNA positivo</button>
+    <button onclick="next('repetir')">RNA negativo</button>
+  </div>
+</section>
+
+<section id="positivo" class="hidden">
+  <div class="card">
+    <h1>Resultado REACTIVO</h1>
+    <p>Confirmar con RNA VIH</p>
+    <button onclick="next('vihConfirmado')">RNA positivo</button>
+    <button onclick="next('repetir')">RNA negativo</button>
+  </div>
+</section>
+
+<section id="vihAgudo" class="hidden">
+  <div class="card">
+    <h1>VIH AGUDO</h1>
+    <p>Iniciar manejo inmediato</p>
+  </div>
+</section>
+
+<section id="vihConfirmado" class="hidden">
+  <div class="card">
+    <h1>VIH CONFIRMADO</h1>
+    <p>Referir a tratamiento</p>
+  </div>
+</section>
+
+<section id="repetir" class="hidden">
+  <div class="card">
+    <h1>Repetir pruebas</h1>
+    <p>Realizar nueva prueba en 1-2 semanas</p>
+  </div>
+</section>
+
+<section id="finNegativo" class="hidden">
+  <div class="card">
+    <h1>VIH descartado</h1>
+  </div>
+</section>
+
+<script>
+function next(id) {
+  document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
